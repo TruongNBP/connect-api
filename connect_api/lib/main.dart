@@ -40,11 +40,11 @@ class _AddUserScreenState extends State<AddUserScreen> {
       try {
         const uri =
             "https://demophp9704.000webhostapp.com/Mob403_TruongNBP_API/api_add.php";
-        final res = await http.post(Uri.parse(uri), body: {
+        final res = await http.post(Uri.parse(uri), body: jsonEncode({
           "name": name.text,
           "age": age.text,
           "email": email.text,
-        });
+        }));
 
         final response = jsonDecode(res.body);
         if (response["success"] == true) {
@@ -95,7 +95,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
             ),
             const SizedBox(height: 50),
             ElevatedButton(
-              onPressed: addUser,
+              onPressed: () async => addUser(),
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(
                   const Size.fromWidth(500),
